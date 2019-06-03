@@ -9,11 +9,11 @@ const SearchBar = () => {
   return (
     <div className='search-bar'>
       <div className='search-logo'>
-        <FontAwesomeIcon icon={faInstagram} />
-        <h2>Instagram</h2>
+        <FontAwesomeIcon icon={faInstagram} size='2x'/>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png' alt='instagram logo' />
       </div>
       <form className='search-form'>
-        <FontAwesomeIcon icon={faSearch} />
+        <FontAwesomeIcon icon={faSearch} size='xs'/>
         <input placeholder='Search'/>
       </form>
       <div className='search-icons'>

@@ -18,8 +18,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <SearchBar />
-        {this.state.data.map(item => <PostContainer post={item} key={item.id}/>)}
+        <header>
+          <SearchBar />
+        </header>
+        <div className='content'>
+          {this.state.data.map(item => <PostContainer post={item} key={item.id}/>)}
+        </div>
       </div>
     );
   }
