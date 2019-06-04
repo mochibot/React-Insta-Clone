@@ -5,7 +5,7 @@ import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
 import moment from 'moment';
 import PropTypes from "prop-types";
 import './PostContainer.scss';
-import { counter } from '@fortawesome/fontawesome-svg-core';
+
 
 class PostContainer extends React.Component {
   constructor (props) {

@@ -5,7 +5,7 @@ import { faCompass, faHeart, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import './SearchBar.scss';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   return (
     <div className='search-bar'>
       <div className='search-logo'>
@@ -14,7 +14,7 @@ const SearchBar = () => {
       </div>
       <form className='search-form'>
         <FontAwesomeIcon icon={faSearch} size='xs'/>
-        <input placeholder='Search'/>
+        <input onChange={props.searchHandler} value={props.value} placeholder='Search'/>
       </form>
       <div className='search-icons'>
         <FontAwesomeIcon icon={faCompass} />

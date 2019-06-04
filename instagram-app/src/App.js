@@ -21,11 +21,28 @@ class App extends React.Component {
     })
   }
 
+  searchSubmit = (event) => {
+    event.preventDefault();
+    if (event.target.value !== '') {
+      let searchInput = (event.target.value).toLowerCase();
+      this.setState(prevState => {
+        return {
+          data: prevState.data.filter(item => item.username.toLowerCase().includes(searchInput))
+        }
+      }) 
+    } else {
+      this.setState({
+        data: dummyData
+      })
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <header>
-          <SearchBar />
+          <SearchBar 
+            searchHandler={this.searchSubmit} />
         </header>
         <div className='content'>
           {this.state.data.map(item => <PostContainer post={item} key={item.id}/>)}
