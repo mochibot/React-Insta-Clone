@@ -6,25 +6,63 @@ import moment from 'moment';
 import PropTypes from "prop-types";
 import './PostContainer.scss';
 
-const PostContainer = (props) => {
-  return(
-    <div className='post-container'>
-      <div className='post-logo'>
-        <img src={props.post.thumbnailUrl} />
-        <h3>{props.post.username}</h3>
+class PostContainer extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      data: props.post,
+      comments: props.post.comments,
+      input: ''
+    }
+  }
+
+  submitInput = (event) => {
+    event.preventDefault();
+
+    const newComment = {
+      id: this.state.comments.length + 1,
+      username: 'testuser',
+      text: this.state.input
+    }
+
+    this.setState(prevState => {
+      return { 
+        comments: [...prevState.comments, newComment],
+        input: ''
+      }
+    })
+  }
+
+  changeInput = (event) => {
+    this.setState({
+      input: event.target.value
+    })
+  }
+
+  render() {
+    return(
+      <div className='post-container'>
+        <div className='post-logo'>
+          <img src={this.state.data.thumbnailUrl} />
+          <h3>{this.state.data.username}</h3>
+        </div>
+        <div className='post-image'>
+          <img src={this.state.data.imageUrl} />
+        </div>
+        <div className='post-icon'>
+          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon icon={faComment} />
+        </div>
+        <div className='post-likes'>{this.state.data.likes} likes</div>
+        <CommentSection comments={this.state.comments} />
+        <div className='post-date'>{moment(this.state.data.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</div>
+        <form className='comment-form' onSubmit={this.submitInput}>
+          <textarea onChange={this.changeInput} value={this.state.input} placeholder='Add a comment...'></textarea>
+          <button style={{color: this.state.input === '' ? 'rgb(196, 196, 196)' : 'rgb(77, 77, 235)'}} disabled={this.state.input === ''}>Post</button>
+        </form>
       </div>
-      <div className='post-image'>
-        <img src={props.post.imageUrl} />
-      </div>
-      <div className='post-icon'>
-        <FontAwesomeIcon icon={faHeart} />
-        <FontAwesomeIcon icon={faComment} />
-      </div>
-      <div className='post-likes'>{props.post.likes} likes</div>
-      <CommentSection comments={props.post.comments} />
-      <div className='post-date'>{moment(props.post.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</div>
-    </div>
-  )
+    )
+  }
 }
 
 PostContainer.propTypes = {

@@ -64,10 +64,41 @@
     }
 
     .post-date {
-      padding: 1% 2% 2% 1%;
+      padding: 1% 2% 1% 2%;
       text-transform: uppercase;
       font-size: 1.2rem;
       color: lightgray;
+    }
+
+    .comment-form {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 1% 2%;
+      border-top: 1px solid lightgray;
+
+      textarea {
+        width: 90%;
+        font-size: 1.4rem;
+        font-family: 'Open Sans', sans-serif;
+        border: none;
+        resize: none;
+        outline: none;
+
+        &::placeholder {
+          color: rgb(196, 196, 196);
+        }
+      }
+
+      button {
+        border: none;
+        background: white;
+        position: absolute;
+        font-size: 1.6rem;
+        padding: 1rem;
+        margin-left: 90%;
+        outline: none;
+      }
     }
   }
 }
