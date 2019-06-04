@@ -5,6 +5,7 @@ import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
 import moment from 'moment';
 import PropTypes from "prop-types";
 import './PostContainer.scss';
+import { counter } from '@fortawesome/fontawesome-svg-core';
 
 class PostContainer extends React.Component {
   constructor (props) {
@@ -12,7 +13,9 @@ class PostContainer extends React.Component {
     this.state = {
       data: props.post,
       comments: props.post.comments,
-      input: ''
+      input: '',
+      likes: props.post.likes,
+      liked: false
     }
   }
 
@@ -33,8 +36,24 @@ class PostContainer extends React.Component {
     })
   }
 
+  toggleLike = (event) => {
+    event.preventDefault();
+    let count = 0
+    if (!this.state.liked) {
+      count = 1;
+    } else {
+      count = -1;
+    }
+    this.setState(prevState => {
+      return {
+        liked: !prevState.liked,
+        likes: prevState.likes + count
+      }
+    })
+  }
+
   changeInput = (event) => {
-    this.setState({
+    return this.setState({
       input: event.target.value
     })
   }
@@ -50,10 +69,13 @@ class PostContainer extends React.Component {
           <img src={this.state.data.imageUrl} />
         </div>
         <div className='post-icon'>
-          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon 
+            icon={faHeart} 
+            onClick={this.toggleLike}
+            style={{color: this.state.liked ? 'red' : 'black'}}/>
           <FontAwesomeIcon icon={faComment} />
         </div>
-        <div className='post-likes'>{this.state.data.likes} likes</div>
+        <div className='post-likes'>{this.state.likes} likes</div>
         <CommentSection comments={this.state.comments} />
         <div className='post-date'>{moment(this.state.data.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</div>
         <form className='comment-form' onSubmit={this.submitInput}>
