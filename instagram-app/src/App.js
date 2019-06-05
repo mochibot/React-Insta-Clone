@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
-import SearchBar from './components/SearchBar/SearchBar'
-import PostContainer from './components/PostContainer/PostContainer'
+import PostPage from './components/PostContainer/PostPage'
 import dummyData from './dummy-data'
 
 //import { library } from '@fortawesome/fontawesome-svg-core';
@@ -16,13 +15,37 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    if (!localStorage.getItem('data')) {
+      //reset list to initial tasks obj if list is empty
+      this.setState({
+        data: dummyData
+      })
+    } else {
+      this.setState({
+        data: JSON.parse(localStorage.getItem('data')),
+      })
+    }
+  } 
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.data !== this.state.data) {
+      localStorage.setItem('data', JSON.stringify(this.state.data));
+    }
+  }
+
+  /* commenting out for localstorage stretch goal
+  componentDidMount() {
     this.setState({
       data: dummyData
     })
   }
-
+  */
   searchSubmit = (event) => {
     event.preventDefault();
+    this.setState({
+      searchInput: event.target.value
+    })
+    /*
     if (event.target.value !== '') {
       let searchInput = (event.target.value).toLowerCase();
       this.setState(prevState => {
@@ -32,21 +55,16 @@ class App extends React.Component {
       }) 
     } else {
       this.setState({
-        data: dummyData
+        data: this.state.data
       })
     }
+    */
   }
 
   render() {
     return (
       <div className="App">
-        <header>
-          <SearchBar 
-            searchHandler={this.searchSubmit} />
-        </header>
-        <div className='content'>
-          {this.state.data.map(item => <PostContainer post={item} key={item.id}/>)}
-        </div>
+        <PostPage data={this.state.data} />
       </div>
     );
   }
