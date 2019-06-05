@@ -1,14 +1,43 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import PostContainer from './PostContainer';
+import dummyData from '../../dummy-data'
 
 class PostPage extends React.Component {
   constructor() {
     super();
     this.state = {
+      data: [],
       searchInput: ''
     }
   }
+
+  componentDidMount() {
+    if (!localStorage.getItem('data')) {
+      //reset list to initial tasks obj if list is empty
+      this.setState({
+        data: dummyData
+      })
+    } else {
+      this.setState({
+        data: JSON.parse(localStorage.getItem('data')),
+      })
+    }
+  } 
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.data !== this.state.data) {
+      localStorage.setItem('data', JSON.stringify(this.state.data));
+    }
+  }
+
+  /* commenting out for localstorage stretch goal
+  componentDidMount() {
+    this.setState({
+      data: dummyData
+    })
+  }
+  */
 
   searchSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +68,7 @@ class PostPage extends React.Component {
           searchHandler={this.searchSubmit} />
         </header>
         <div className='content'>
-          {this.props.data.filter(item => item.username.toLowerCase().includes(this.state.searchInput.toLowerCase())).map(item => <PostContainer post={item} key={item.id}/>)}
+          {this.state.data.filter(item => item.username.toLowerCase().includes(this.state.searchInput.toLowerCase())).map(item => <PostContainer post={item} key={item.id}/>)}
         </div>
       </div>
     )

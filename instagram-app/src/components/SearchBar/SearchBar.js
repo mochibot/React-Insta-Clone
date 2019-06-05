@@ -6,6 +6,12 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import './SearchBar.scss';
 
 const SearchBar = (props) => {
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem('userName');
+    window.location.reload();
+  }
+
   return (
     <div className='search-bar'>
       <div className='search-logo'>
@@ -19,11 +25,8 @@ const SearchBar = (props) => {
       <div className='search-icons'>
         <FontAwesomeIcon icon={faCompass} />
         <FontAwesomeIcon icon={faHeart} />
-        <FontAwesomeIcon icon={faUser} />
+        <FontAwesomeIcon icon={faUser} onClick={logout}/>
       </div>
-      
-      
-
     </div>
   )
 }
