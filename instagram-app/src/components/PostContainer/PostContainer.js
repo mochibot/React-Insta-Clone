@@ -41,7 +41,7 @@ class PostContainer extends React.Component {
 
     const newComment = {
       id: this.state.comments.length + 1,
-      username: 'testuser',
+      username: localStorage.getItem('userName'),
       text: this.state.input
     }
 
@@ -115,7 +115,7 @@ class PostContainer extends React.Component {
             value={this.state.input} 
             placeholder='Add a comment...'></textarea>
           <button 
-            style={{color: this.state.input === '' ? 'rgb(196, 196, 196)' : 'rgb(77, 77, 235)'}} 
+            style={{color: this.state.input === '' ? 'rgb(196, 196, 196)' : 'rgb(56, 151, 240)'}} 
             disabled={this.state.input === ''}>Post</button>
         </form>
       </div>
