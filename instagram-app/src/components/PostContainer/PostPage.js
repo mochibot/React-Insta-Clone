@@ -14,7 +14,6 @@ class PostPage extends React.Component {
 
   componentDidMount() {
     if (!localStorage.getItem('data')) {
-      //reset list to initial tasks obj if list is empty
       this.setState({
         data: dummyData
       })

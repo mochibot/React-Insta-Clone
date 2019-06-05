@@ -16,27 +16,39 @@ class PostContainer extends React.Component {
       comments: props.post.comments,
       input: '',
       likes: props.post.likes,
-      liked: false
+      liked: ''
     }
   }
+
+  //keeping track of whether the post was liked or not
+  componentDidMount() {
+    if (!localStorage.getItem(`${this.props.post.id}-liked`)) {
+      this.setState({
+        liked: false
+      })
+    } else {
+      this.setState({
+        liked: JSON.parse(localStorage.getItem(`${this.props.post.id}-liked`))
+      })
+    }
+  } 
+
 
   componentDidUpdate(prevProps, prevState) {
     const posts = JSON.parse(localStorage.getItem('data'));
     const newPosts = posts.map(item=> {
         if(item.id === this.props.post.id) {
           item.comments = this.state.comments;
-          item.liked = this.state.liked;
           item.likes = this.state.likes;
+          item.liked = this.state.liked;
         }
         return item;
     });
     localStorage.setItem('data', JSON.stringify(newPosts));
-    console.log(this.state.liked);
+    localStorage.setItem(`${this.props.post.id}-liked`, this.state.liked);
   }
-
-
   
-  submitInput = (event) => {
+  addComment = (event) => {
     event.preventDefault();
 
     const newComment = {
@@ -69,7 +81,7 @@ class PostContainer extends React.Component {
     })
   }
 
-  changeInput = (event) => {
+  inputComment = (event) => {
     return this.setState({
       input: event.target.value
     })
@@ -82,8 +94,6 @@ class PostContainer extends React.Component {
       }
     })
   }
-
-  
 
   render() {
     return(
@@ -109,9 +119,9 @@ class PostContainer extends React.Component {
         <div className='post-date'>{moment(this.state.data.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</div>
         <form 
           className='comment-form' 
-          onSubmit={this.submitInput}>
+          onSubmit={this.addComment}>
           <textarea 
-            onChange={this.changeInput} 
+            onChange={this.inputComment} 
             value={this.state.input} 
             placeholder='Add a comment...'></textarea>
           <button 
