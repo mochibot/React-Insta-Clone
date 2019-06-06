@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginDiv, LoginForm, LoginButton } from './LoginStyles'
 import './Login.scss';
 
 class Login extends React.Component {
@@ -26,15 +27,15 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className='login'>
-        <form className='login-form' onSubmit={this.login}>
+      <LoginDiv>
+        <LoginForm onSubmit={this.login}>
           <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png' alt='instagram logo' />
           <img src='https://png.pngtree.com/svg/20170602/user_circle_1048392.png' alt='user-logo'/>
           <input placeholder='username' onChange={this.userNameInput} value={this.state.input} required></input>
           <input placeholder='password' required></input>
-          <button>Login</button>
-        </form>
-      </div>
+          <LoginButton>Login</LoginButton>
+        </LoginForm>
+      </LoginDiv>
     )
   }
 }

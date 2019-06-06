@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import PostContainer from './PostContainer';
 import dummyData from '../../dummy-data'
+import { PostPageDiv, PostContentDiv } from './PostContainerStyles'
 
 class PostPage extends React.Component {
   constructor() {
@@ -61,15 +62,15 @@ class PostPage extends React.Component {
 
   render() {
     return (
-      <div> 
+      <PostPageDiv> 
         <header>
         <SearchBar 
           searchHandler={this.searchSubmit} />
         </header>
-        <div className='content'>
+        <PostContentDiv className='content'>
           {this.state.data.filter(item => item.username.toLowerCase().includes(this.state.searchInput.toLowerCase())).map(item => <PostContainer post={item} key={item.id}/>)}
-        </div>
-      </div>
+        </PostContentDiv>
+      </PostPageDiv>
     )
   }
 }

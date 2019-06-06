@@ -1,4 +1,4 @@
-.search-bar {
+.search-bar {  
   position: fixed;
   top: 0;
   max-width: 1000px;
@@ -11,13 +11,12 @@
   border-bottom: 1px solid lightgray;
   background: white;
 
-
   .search-logo {
     display: flex;
     align-items: center;
     
     :first-child {
-      border-right: 1px solid gray;
+      border-right: 1px solid lightgray;
       padding: 2px;
       width: 5rem;
     }

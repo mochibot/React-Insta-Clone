@@ -5,8 +5,8 @@ import { faHeart as farHeart, faComment } from '@fortawesome/free-regular-svg-ic
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import PropTypes from "prop-types";
+import { PostContainerDiv, PostLogoDiv, PostImage, PostIconDiv, PostLikesDiv, PostDateDiv, CommentForm, PostButton } from './PostContainerStyles'
 import './PostContainer.scss';
-
 
 class PostContainer extends React.Component {
   constructor (props) {
@@ -32,7 +32,6 @@ class PostContainer extends React.Component {
       })
     }
   } 
-
 
   componentDidUpdate(prevProps, prevState) {
     const posts = JSON.parse(localStorage.getItem('data'));
@@ -97,38 +96,35 @@ class PostContainer extends React.Component {
 
   render() {
     return(
-      <div className='post-container'>
-        <div className='post-logo'>
+      <PostContainerDiv>
+        <PostLogoDiv>
           <img src={this.state.data.thumbnailUrl} />
           <h3>{this.state.data.username}</h3>
-        </div>
-        <div className='post-image'>
-          <img src={this.state.data.imageUrl} />
-        </div>
-        <div className='post-icon'>
+        </PostLogoDiv>
+        <PostImage src={this.state.data.imageUrl} />
+        <PostIconDiv>
           <FontAwesomeIcon 
             icon={this.state.liked ? fasHeart : farHeart} 
             onClick={this.toggleLike}
             style={{color: this.state.liked ? 'red' : 'black'}}/>
           <FontAwesomeIcon icon={faComment} />
-        </div>
-        <div className='post-likes'>{this.state.likes} likes</div>
+        </PostIconDiv>
+        <PostLikesDiv>{this.state.likes} likes</PostLikesDiv>
         <CommentSection 
           comments={this.state.comments} 
           removeComment={this.removeComment}/>
-        <div className='post-date'>{moment(this.state.data.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</div>
-        <form 
-          className='comment-form' 
+        <PostDateDiv>{moment(this.state.data.timestamp, 'MMMM Do YYYY, h:mm:ss a').fromNow()}</PostDateDiv>
+        <CommentForm 
           onSubmit={this.addComment}>
           <textarea 
             onChange={this.inputComment} 
             value={this.state.input} 
             placeholder='Add a comment...'></textarea>
-          <button 
+          <PostButton 
             style={{color: this.state.input === '' ? 'rgb(196, 196, 196)' : 'rgb(56, 151, 240)'}} 
-            disabled={this.state.input === ''}>Post</button>
-        </form>
-      </div>
+            disabled={this.state.input === ''}>Post</PostButton>
+        </CommentForm>
+      </PostContainerDiv>
     )
   }
 }
