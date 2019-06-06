@@ -1,30 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
+import { CommentDiv, CommentText, DeleteCommentButton } from './CommentSectionStyles'
 
-const CommentDiv = styled.div`
-  padding: 1% 2%;
-
-  > * {
-    display: inline;
-  }
-  
-  > h3 {
-    font-weight: bold;
+class Comment extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isMouseInside: false
+    }
   }
 
-  > p {
-    padding-left: 0.6rem;
+  mouseEnter = () => {
+    this.setState({
+      isMouseInside: true
+    })
   }
-`
 
-const Comment = (props) => {
+  mouseLeave = () => {
+    this.setState({
+      isMouseInside: false
+    })
+  }
 
-  return (
-    <CommentDiv onClick={() => props.removeComment(props.comment)}>
-      <h3>{props.comment.username}</h3>
-      <p>{props.comment.text}</p>
-    </CommentDiv>
-  )
+  render() {
+    return (
+      <CommentDiv onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+        <CommentText>
+          <h3>{this.props.comment.username}</h3>
+          <p>{this.props.comment.text}</p>
+        </CommentText>
+        {this.state.isMouseInside ? <DeleteCommentButton onClick={() => this.props.removeComment(this.props.comment)}>DELETE</DeleteCommentButton> : null}
+      </CommentDiv>
+    )
+  }
 }
 
 export default Comment;

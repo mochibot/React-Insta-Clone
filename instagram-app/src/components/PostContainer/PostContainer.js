@@ -52,7 +52,7 @@ class PostContainer extends React.Component {
 
     const newComment = {
       id: this.state.comments.length + 1,
-      username: localStorage.getItem('userName'),
+      username: localStorage.getItem('username'),
       text: this.state.input
     }
 
