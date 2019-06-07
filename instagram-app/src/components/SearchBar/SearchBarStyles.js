@@ -62,4 +62,31 @@ export const SearchIcons = styled(FlexDiv)`
     color: darkgray;
     font-size: 2rem;
   }
+
+  > :nth-child(3) {
+    cursor: pointer;
+  }
+`;
+
+export const LogOutDiv = styled.div`
+  position: absolute;
+  top: 43px;
+  right: 0.5%
+  background: white;
+  z-index: 10;
+  width: 80px;
+  padding: 1rem 0;
+  text-align: center;
+  border: 1px solid lightgray;
+
+  > button {
+    border: none;
+    background: white;
+    margin: 0;
+    padding: none;
+    font-size: 1.6rem;
+    outline: none;
+    color: rgb(56, 151, 240);
+    cursor: pointer;
+  }
 `;

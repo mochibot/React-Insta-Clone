@@ -28,7 +28,7 @@ class Comment extends React.Component {
           <h3>{this.props.comment.username}</h3>
           <p>{this.props.comment.text}</p>
         </CommentText>
-        {this.state.isMouseInside ? <DeleteCommentButton onClick={() => this.props.removeComment(this.props.comment)}>DELETE</DeleteCommentButton> : null}
+        { this.state.isMouseInside && this.props.comment.username === localStorage.getItem('username') ? <DeleteCommentButton onClick={() => this.props.removeComment(this.props.comment)}>DELETE</DeleteCommentButton> : null}
       </CommentDiv>
     )
   }
